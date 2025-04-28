@@ -183,28 +183,25 @@ ccc<-sapply(all_lnc,function(x){
 saveRDS(num3,"num3.rds")
 
 
-
-early_stage<-readRDS("num2.rds")
+early_stage<-readRDS("D:\\num2.rds")
 names(early_stage)<-all_lnc
 length(which(early_stage!=0))
-metastasis<-readRDS("num3.rds")
+metastasis<-readRDS("D:\\num3.rds")
 names(metastasis)<-all_lnc
 length(which(metastasis!=0))
 
+
 length(intersect(all_early_lnc,names(early_stage)[which(early_stage!=0)]))
-phyper(97-1, 361, 16901-361, 780,lower.tail = F)           #p=1.153515e-47
+phyper(96-1, 361, 16901-361, 780,lower.tail = F)          
 
 length(intersect(all_advance_lnc,names(metastasis)[which(metastasis!=0)]))
-phyper(241-1, 1114, 16901-1114, 944,lower.tail = F)       #p=3.842642e-82
+phyper(241-1, 1114, 16901-1114, 944,lower.tail = F)   
 
 #与lnc2cancer交
-stg4<-sample1[match(unique(as.character(unlist(s44))),gg),2]
-length(intersect(stg4,yzg))
-phyper(122-1, 1051, 16901-1051, 764,lower.tail = F)
-
-hh<-unique(c(stg3,stg4))
-length(intersect(hh,yzg))
-phyper(137-1, 1051, 16901-1051, 944,lower.tail = F)
+lnc2cancer<-read.csv("D:\\lnc2cancer系列基因\\lnc2cancer转移基因.csv")
+hh<-unique(all_advance_lnc)
+length(intersect(hh,lnc2cancer[,1]))
+phyper(137-1, 1051, 16901-1051, 944,lower.tail = F)              
 
 
 #Figure 1D
