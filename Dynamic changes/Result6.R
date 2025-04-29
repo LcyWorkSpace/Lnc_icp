@@ -181,8 +181,7 @@ res_list<-lapply(wrapper_learner,function(x){
   }
 })
 step1<-do.call(rbind.data.frame,res_list)
-step1<-readRDS("D:\\225_step1.rds")
-step1<-readRDS("D:\\step1.rds")
+
 
 #处理独立验证数据集
 dat<-"Melanoma-GSE115821.rds"
@@ -209,30 +208,6 @@ test<-sapply(1:dim(step1)[1],function(x){
 })
 test<-t(test)
 ff<-data.frame(step1,test)
-
-
-#Figure 6C
-library(ggplot2)
-
-ggplot()+
-  geom_histogram(aes(x=step1[which(step1$auc<step1[57,2]),2],y=after_stat(density)),binwidth = 0.01, color='black',fill='#bfefff',linewidth=0.5)+
-  geom_density(aes(x=step1[which(step1$auc<step1[57,2]),2],y=after_stat(density)),color='black', fill='#333d3e',alpha=0.25,linewidth=0.5)+
-  theme_bw()+
-  labs(x="AUC", y='Count of classifier')+
-  theme_classic(base_size = 14)+
-  theme(axis.text = element_text(color = 'black'))
-
-
-#Figure 6D
-plotdata<-data.frame(type=c("Train","Test","Validation"),auc=as.numeric(ff[57,c(2,7,9)]))
-
-ggplot(plotdata,aes(x=type,y=auc))+
-  geom_bar(fill="lightblue1",stat="identity")+
-  labs(y="AUC", x="")+
-  theme_classic(base_size = 14)+
-  theme(text=element_text(angle=45))
-
-
 
 
 library(data.table)
